@@ -1,13 +1,30 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import useSignUp from "../../Hooks/useSignUp";
 
 const SignUp = () => {
+  const { signup, loading } = useSignUp();
+
+  // submit handler
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    await signup({
+      first_name: e.target.first_name.value,
+      last_name: e.target.last_name.value,
+      username: e.target.username.value,
+      email: e.target.email.value,
+      password: e.target.password.value,
+      confirm_password: e.target.confirm_password.value,
+      gender: e.target.gender.value,
+    });
+  };
   return (
     <div className="sm:w-[550px] w-fit py-8 px-6 bg-gray-800/25 border border-gray-500/50 shadow-lg backdrop-blur-md rounded-lg flex flex-col items-center justify-start">
       <h2 className="text-2xl font-bold mb-9">
         SignUp <span className="text-base main-theme-color">Hello Buddy</span>
       </h2>
 
-      <form className="flex flex-col gap-3">
+      <form onSubmit={submitHandler} className="flex flex-col gap-3">
         {/* name  */}
         <div className="flex flex-wrap gap-2">
           {/* first name  */}
@@ -124,12 +141,12 @@ const SignUp = () => {
           <div className="flex items-center justify-center gap-4">
             {/* male  */}
             <label
-              for="gender-male"
+              htmlFor="gender-male"
               className="flex items-center gap-2 bg-transparent grow"
             >
               <input
                 type="radio"
-                name="radio-1"
+                name="gender"
                 id="gender-male"
                 value={1}
                 className="radio radio-warning"
@@ -140,12 +157,12 @@ const SignUp = () => {
 
             {/* female  */}
             <label
-              for="gender-female"
+              htmlFor="gender-female"
               className="flex items-center gap-2 bg-transparent grow"
             >
               <input
                 type="radio"
-                name="radio-1"
+                name="gender"
                 id="gender-female"
                 value={0}
                 className="radio radio-warning"
@@ -157,14 +174,21 @@ const SignUp = () => {
 
         {/* Login page link  */}
         <div>
-          <a href="/" className="text-sm text-gray-500 hover:underline">
+          <Link to="/login" className="text-sm text-gray-500 hover:underline">
             Already have an account? Login
-          </a>
+          </Link>
         </div>
 
         {/* SignUp btn  */}
-        <button className="btn btn-neutral bg-gray-800 hover:bg-transparent">
-          Sign Up
+        <button
+          className="btn btn-neutral bg-gray-800 hover:bg-transparent"
+          disabled={loading}
+        >
+          {loading ? (
+            <span className="loading loading-spinner"></span>
+          ) : (
+            "Sign Up"
+          )}
         </button>
       </form>
     </div>

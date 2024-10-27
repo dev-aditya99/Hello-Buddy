@@ -6,6 +6,7 @@ import connectToMongoDB from "./db/connectToMongoDB.js";
 import authRouter from "./routes/auth.routes.js";
 import messageRouter from "./routes/message.routes.js";
 import userRouter from "./routes/user.routes.js";
+import cors from "cors";
 
 dotenv.config();
 
@@ -14,6 +15,12 @@ const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 app.use(cookieParser());
+// app.use(cors());
+
+app.use(cors({
+    origin: process.env.FRONTEND_URL, // The frontend domain
+    credentials: true, // This allows cookies to be sent in cross-origin requests
+}));
 
 app.use("/auth", authRouter);
 app.use("/messages", messageRouter);

@@ -1,13 +1,26 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import useLogin from "../../Hooks/useLogin";
 
 const Login = () => {
+  const { loginUser, loading } = useLogin();
+
+  // submit handler
+  const submitHandler = async (e) => {
+    e.preventDefault();
+
+    await loginUser({
+      username: e.target.username.value,
+      password: e.target.password.value,
+    });
+  };
   return (
     <div className="w-80 py-4 px-2 bg-gray-800/25 border border-gray-500/50 shadow-lg backdrop-blur-md rounded-lg flex flex-col items-center justify-start">
       <h2 className="text-2xl font-bold mb-9">
         Login <span className="text-base main-theme-color">Hello Buddy</span>
       </h2>
 
-      <form className="flex flex-col gap-2">
+      <form onSubmit={submitHandler} className="flex flex-col gap-2">
         {/* username  */}
         <div>
           <label className="input input-bordered flex items-center gap-2 bg-transparent">
@@ -23,6 +36,7 @@ const Login = () => {
               type="text"
               className="grow bg-transparent"
               placeholder="Username"
+              name="username"
             />
           </label>
         </div>
@@ -42,20 +56,29 @@ const Login = () => {
                 clipRule="evenodd"
               />
             </svg>
-            <input type="password" className="grow" placeholder="Password" />
+            <input
+              type="password"
+              className="grow"
+              placeholder="Password"
+              name="password"
+            />
           </label>
         </div>
 
         {/* sign up page link  */}
         <div>
-          <a href="/" className="text-sm text-gray-500 hover:underline">
+          <Link to="/sign-up" className="text-sm text-gray-500 hover:underline">
             Create new account
-          </a>
+          </Link>
         </div>
 
         {/* login btn  */}
         <button className="btn btn-neutral bg-gray-800 hover:bg-transparent">
-          Login
+          {loading ? (
+            <span className="loading loading-spinner"></span>
+          ) : (
+            "Login"
+          )}
         </button>
       </form>
     </div>

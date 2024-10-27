@@ -3,18 +3,20 @@ import Header from "./Header";
 import AllMessages from "./AllMessages";
 import MessageInput from "./MessageInput";
 import { MdMessage } from "react-icons/md";
+import useConversation from "../../zustand/useConversation";
 
 const MessageContainer = () => {
-  const ifNoMessage = false;
+  const { selectedConversation } = useConversation();
+
   return (
     <div className="w-full h-full px-6 flex flex-col items-start justify-start border-l border-slate-700/50">
-      {!ifNoMessage ? (
+      {!selectedConversation ? (
         <NoMessagePlaceHolder />
       ) : (
         <>
-          <Header />
-          <AllMessages />
-          <MessageInput />
+          <Header selectedConversation={selectedConversation} />
+          <AllMessages selectedConversation={selectedConversation} />
+          <MessageInput selectedConversation={selectedConversation} />
         </>
       )}
     </div>

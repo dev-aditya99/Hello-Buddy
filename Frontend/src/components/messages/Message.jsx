@@ -1,32 +1,48 @@
 import React from "react";
 import { RiCheckDoubleLine } from "react-icons/ri";
-import { IoMdTime } from "react-icons/io";
+import useConversation from "../../zustand/useConversation";
+import { useAuthContext } from "../../context/AuthContext";
+import extractTime from "../../utils/extractTime";
 
-const Message = () => {
+const Message = ({ message }) => {
+  const { authUser } = useAuthContext();
+  const { selectedConversation } = useConversation();
+  const fromMe = message?.sender_id === authUser?._id;
+
   return (
-    <div className="chat chat-start">
+    <div className={`chat ${fromMe ? "chat-end mt-2" : "chat-start"}`}>
       {/* chat avatar  */}
       <div className="chat-image avatar">
         <div className="w-5 rounded-full">
           <img
             alt="Tailwind CSS chat bubble component"
-            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+            src={
+              fromMe
+                ? authUser?.profile_pic
+                : selectedConversation?.profile_pic ||
+                  "https://cdn-icons-png.flaticon.com/128/847/847969.png"
+            }
+            className="bg-slate-600"
           />
         </div>
       </div>
 
       {/* chat details */}
       {/* <div className="chat-header"></div> */}
-      <div className="chat-bubble">
-        <p>You were the Chosen One!</p>
+      <div className={`chat-bubble ${fromMe && "bg-[#939ce6] text-slate-900"}`}>
+        <p>{message?.message}</p>
         <time className="pt-2 text-xs opacity-50 flex items-center">
           {/* <IoMdTime /> */}
-          12:45
+          {extractTime(message?.createdAt)}
         </time>
       </div>
-      <div className="chat-footer opacity-50">
-        <RiCheckDoubleLine />
-      </div>
+
+      {/* message status  */}
+      {fromMe && (
+        <div className="chat-footer opacity-50">
+          <RiCheckDoubleLine />
+        </div>
+      )}
     </div>
   );
 };
