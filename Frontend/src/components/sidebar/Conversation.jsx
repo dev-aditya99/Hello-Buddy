@@ -43,12 +43,12 @@ const Conversation = ({ conversations, lastIdx, lastMessage }) => {
 
             {/* last chat or online status  */}
             <p className="text-sm text-slate-500 flex items-center gap-2">
-              {isOnline ? "Active Now" : !lastMessage && "No recent messages"}
+              {isOnline ? "Active Now" : ""}
             </p>
           </div>
 
           {/* username  */}
-          <span className="sm:w-auto w-12 text-sm font-light truncate">
+          <span className="sm:w-auto max-[320px]:w-12 w-18 text-sm font-light truncate">
             ~{conversations?.username}
           </span>
         </div>

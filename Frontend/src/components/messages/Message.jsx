@@ -12,7 +12,7 @@ const Message = ({ message }) => {
   const shakeClass = message.shouldShake ? "shake" : "";
 
   return (
-    <div className={`chat ${fromMe ? "chat-end mt-2" : "chat-start"}`}>
+    <div className={`chat ${fromMe ? "chat-end mt-2" : "chat-start"} py-2`}>
       {/* chat avatar  */}
       <div className="chat-image avatar">
         <div className="w-5 rounded-full">
@@ -30,7 +30,6 @@ const Message = ({ message }) => {
       </div>
 
       {/* chat details */}
-      {/* <div className="chat-header"></div> */}
       <div
         className={`chat-bubble ${
           fromMe && "bg-[#939ce6] text-slate-900"

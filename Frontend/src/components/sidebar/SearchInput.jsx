@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
+import { CiUser } from "react-icons/ci";
+
 import useConversation from "../../zustand/useConversation";
 import { toast } from "react-hot-toast";
 import useGetConversations from "../../Hooks/useGetConversation";
@@ -33,18 +35,22 @@ const SearchInput = () => {
   };
   return (
     <div className="w-full pb-2">
-      <form onSubmit={handleSubmit} className="flex gap-2">
+      <form
+        onSubmit={handleSubmit}
+        className="w-full flex flex-wrap items-center justify-center gap-2"
+      >
         {/* search input  */}
-        <label className="input input-bordered flex items-center gap-2 bg-transparent">
+        <label className="input input-bordered w-[80%] flex items-center justify-center gap-2 bg-transparent">
           <input
             type="text"
             className="grow"
-            placeholder="Search"
+            placeholder="Search an user"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-          <kbd className="kbd kbd-sm">⌘</kbd>
-          <kbd className="kbd kbd-sm">K</kbd>
+          <kbd className="kbd kbd-sm bg-transparent">
+            <CiUser />
+          </kbd>
         </label>
 
         {/* search btn  */}

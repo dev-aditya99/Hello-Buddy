@@ -3,9 +3,13 @@ import SearchInput from "./SearchInput";
 import AllConversations from "./AllConversations";
 import BottomBar from "./bottom_bar/BottomBar";
 
-const Sidebar = () => {
+const Sidebar = ({ toggle }) => {
   return (
-    <div className="w-[40%] h-full flex flex-col items-center justify-start">
+    <div
+      className={`min-[780px]:w-[50%] w-full h-full flex flex-col items-center justify-start ${
+        toggle ? "max-[780px]:invisible" : "max-[780px]:visible"
+      } duration-100`}
+    >
       <SearchInput />
       {/* <div className="divider m-0 h-0 px-3"></div> */}
       <AllConversations />

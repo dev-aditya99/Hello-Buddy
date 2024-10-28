@@ -61,6 +61,7 @@ const Login = () => {
               className="grow"
               placeholder="Password"
               name="password"
+              onPaste={true}
             />
           </label>
         </div>

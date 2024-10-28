@@ -13,8 +13,8 @@ const MessageInput = () => {
   };
 
   return (
-    <form className="w-full pt-3" onSubmit={submitHandler}>
-      <div className="sm:px-6 w-full flex items-center gap-4">
+    <form className="w-full pt-3 px-3" onSubmit={submitHandler}>
+      <div className="w-full flex items-center justify-center gap-4">
         {/* message input  */}
         <input
           type="text"
@@ -26,7 +26,7 @@ const MessageInput = () => {
 
         {/* send btn  */}
         <button
-          className={`tooltip w-12 h-12 bg-[#939ce6] hover:bg-transparent text-[#141c2e] hover:text-[#939ce6] text-3xl flex items-center justify-center rounded-full duration-200 ${
+          className={`tooltip min-[350px]:w-12 w-10 min-[350px]:h-12 h-10 bg-[#939ce6] hover:bg-transparent text-[#141c2e] hover:text-[#939ce6] text-3xl flex items-center justify-center rounded-full duration-200 ${
             loading && "cursor-not-allowed"
           }`}
           disabled={loading}
