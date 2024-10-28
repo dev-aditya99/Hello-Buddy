@@ -16,7 +16,7 @@ const useSignUp = () => {
 
         setLoading(true)
         try {
-            const res = await fetch("http://localhost:8000/auth/sign-up", {
+            const res = await fetch(import.meta.env.VITE_BACKEND_URL + "/auth/sign-up", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ first_name, last_name, username, email, password, confirm_password, gender }),

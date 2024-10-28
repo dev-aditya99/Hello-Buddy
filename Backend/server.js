@@ -1,3 +1,4 @@
+import path from "path";
 import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
@@ -13,6 +14,8 @@ dotenv.config();
 
 const PORT = process.env.PORT || 5000;
 
+const __dirname = path.resolve();
+
 app.use(express.json());
 app.use(cookieParser());
 // app.use(cors());
@@ -27,10 +30,11 @@ app.use("/auth", authRouter);
 app.use("/messages", messageRouter);
 app.use("/users", userRouter);
 
-// root route 
-app.get("/", (req, res) => {
-    res.send("Shree Ganesh ji ki jay ho")
-})
+app.use(express.static(path.join(__dirname, "/Frontend/dist")));
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "Frontend", "dist", "index.html"));
+});
+
 
 
 server.listen(PORT, () => {

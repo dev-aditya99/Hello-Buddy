@@ -9,7 +9,7 @@ const useGetMessages = () => {
     const getMessages = async () => {
         try {
             setLoading(true);
-            const res = await fetch("http://localhost:8000/messages/" + selectedConversation?._id, {
+            const res = await fetch(import.meta.env.VITE_BACKEND_URL + "/messages/" + selectedConversation?._id, {
                 credentials: "include"
             });
 

@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useAuthContext } from "./AuthContext";
 import io from "socket.io-client";
 
-export const SocketContext = createContext();
+const SocketContext = createContext();
 
 export const useSocketContext = () => {
   return useContext(SocketContext);
@@ -15,23 +15,29 @@ export const SocketContextProvider = ({ children }) => {
 
   useEffect(() => {
     if (authUser) {
-      const socket = io("http://localhost:8000", {
+      console.log(import.meta.env.VITE_BACKEND_URL); // Debug log
+      const newSocket = io(import.meta.env.VITE_BACKEND_URL, {
         query: {
           userId: authUser?._id,
         },
       });
-      setSocket(socket);
 
-      socket.on("getOnlineUsers", (users) => {
+      setSocket(newSocket);
+
+      newSocket.on("getOnlineUsers", (users) => {
         setOnlineUsers(users);
       });
 
-      return () => socket.close();
-    } else {
-      if (!socket) {
-        socket.close();
-        setSocket(null);
-      }
+      // Cleanup function: close socket only if it exists
+      return () => {
+        if (newSocket) {
+          newSocket.close();
+        }
+      };
+    } else if (socket) {
+      // Only close the socket if it exists when authUser is null
+      socket.close();
+      setSocket(null);
     }
   }, [authUser]);
 

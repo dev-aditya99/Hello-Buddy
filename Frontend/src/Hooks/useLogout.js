@@ -11,7 +11,7 @@ const useLogout = () => {
     const logoutUser = async () => {
         try {
             setLoading(true);
-            const res = await fetch("http://localhost:8000/auth/logout", {
+            const res = await fetch(import.meta.env.VITE_BACKEND_URL + "/auth/logout", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
