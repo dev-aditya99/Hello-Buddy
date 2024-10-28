@@ -21,6 +21,7 @@ const MessageInput = () => {
           className="py-3 px-6 bg-gray-800/75/ bg-transparent border border-gray-600/75 rounded-full outline-none focus:ring-1 ring-[#939ce6] grow"
           placeholder="Type message"
           name="message_input"
+          autoComplete="off"
         />
 
         {/* send btn  */}

@@ -4,6 +4,7 @@ import AllMessages from "./AllMessages";
 import MessageInput from "./MessageInput";
 import { MdMessage } from "react-icons/md";
 import useConversation from "../../zustand/useConversation";
+import { useAuthContext } from "../../context/AuthContext";
 
 const MessageContainer = () => {
   const { selectedConversation } = useConversation();
@@ -24,11 +25,14 @@ const MessageContainer = () => {
 };
 
 const NoMessagePlaceHolder = () => {
+  const { authUser } = useAuthContext();
+
   return (
     <div className="w-full h-full flex flex-col items-center justify-center gap-2">
       {/* <h2 className="text-xl font-medium text-[#939ce6]">Hello Buddy</h2> */}
       <h2 className="text-3xl font-bold">
-        Hello Buddy! 👋 <span className="text-[#d1a777]">User Name</span>
+        Hello Buddy! 👋{" "}
+        <span className="text-[#d1a777]">{authUser?.first_name}</span>
       </h2>
 
       <p className="text-slate-500">Click on a chat to start messaging</p>

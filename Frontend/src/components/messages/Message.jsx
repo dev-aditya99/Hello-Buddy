@@ -9,6 +9,8 @@ const Message = ({ message }) => {
   const { selectedConversation } = useConversation();
   const fromMe = message?.sender_id === authUser?._id;
 
+  const shakeClass = message.shouldShake ? "shake" : "";
+
   return (
     <div className={`chat ${fromMe ? "chat-end mt-2" : "chat-start"}`}>
       {/* chat avatar  */}
@@ -29,7 +31,11 @@ const Message = ({ message }) => {
 
       {/* chat details */}
       {/* <div className="chat-header"></div> */}
-      <div className={`chat-bubble ${fromMe && "bg-[#939ce6] text-slate-900"}`}>
+      <div
+        className={`chat-bubble ${
+          fromMe && "bg-[#939ce6] text-slate-900"
+        } ${shakeClass}`}
+      >
         <p>{message?.message}</p>
         <time className="pt-2 text-xs opacity-50 flex items-center">
           {/* <IoMdTime /> */}

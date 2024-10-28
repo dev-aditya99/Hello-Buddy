@@ -1,10 +1,11 @@
 import { useState } from "react"
 import useConversation from "../zustand/useConversation";
 import toast from 'react-hot-toast';
+import sentMessageSound from "../assets/sounds/sent-message-sound.mp3"
 
 const useSendMessage = () => {
     const [loading, setLoading] = useState();
-    const { messages, setMessages, selectedConversation } = useConversation()
+    const { messages, setMessages, selectedConversation } = useConversation();
 
     const sendMessage = async (message) => {
         try {
@@ -23,6 +24,9 @@ const useSendMessage = () => {
             if (data.error) {
                 throw new Error(data.error)
             }
+
+            // const messageSentSound = new Audio(sentMessageSound);
+            // await messageSentSound.play();
 
             setMessages([...messages, data])
 

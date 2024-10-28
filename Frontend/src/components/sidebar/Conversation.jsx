@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import useConversation from "../../zustand/useConversation";
+import { useSocketContext } from "../../context/SocketContext";
 
-const Conversation = ({ conversations, lastIdx }) => {
+const Conversation = ({ conversations, lastIdx, lastMessage }) => {
   const { selectedConversation, setSelectedConversation } = useConversation();
+  const { onlineUsers } = useSocketContext();
+  const isOnline = onlineUsers.includes(conversations?._id);
 
   return (
     <>
@@ -16,7 +19,7 @@ const Conversation = ({ conversations, lastIdx }) => {
         onClick={() => setSelectedConversation(conversations)}
       >
         {/* avatar  */}
-        <div className="avatar online">
+        <div className={`avatar ${isOnline ? "online" : ""}`}>
           <div className="w-12 rounded-full">
             <img
               src={
@@ -30,20 +33,24 @@ const Conversation = ({ conversations, lastIdx }) => {
           </div>
         </div>
 
-        {/* user and last chat details */}
+        {/* user and last chat and other details */}
         <div className="flex items-start justify-between gap-4 flex-1">
           <div className="flex flex-col">
+            {/* user name  */}
             <span className="font-medium">
               {conversations?.first_name + " " + conversations?.last_name}
             </span>
+
+            {/* last chat or online status  */}
             <p className="text-sm text-slate-500 flex items-center gap-2">
-              Recent Message Here...
-              {/* <FaClock /> */}
+              {isOnline ? "Active Now" : !lastMessage && "No recent messages"}
             </p>
           </div>
 
-          {/* last chat time  */}
-          <span className="text-sm font-light">Yesterday</span>
+          {/* username  */}
+          <span className="sm:w-auto w-12 text-sm font-light truncate">
+            ~{conversations?.username}
+          </span>
         </div>
       </div>
 
